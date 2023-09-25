@@ -40,4 +40,15 @@ class TimeScaleValueTest extends TestCase
         $value = TimeScaler::unit($ms)->fromMilli()->toHours();
         $this->assertSame('2h', (string) $value);
     }
+
+    public function testFirstReadmeDemo()
+    {
+        $this->assertSame(
+            '1W',
+            (string) TimeScaler::unit(7)
+                ->fromDays()
+                ->toWeeks()
+        ); //prints "1W", raw() method would return *1*
+
+    }
 }
