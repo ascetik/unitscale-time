@@ -14,6 +14,11 @@
             "Ascetik\\UnitscaleTime\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Ascetik\\UnitscaleTime\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "ascetik",
