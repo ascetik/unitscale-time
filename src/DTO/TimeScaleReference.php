@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * This is part of the UnitScale package.
+ *
+ * @package    UnitScale
+ * @category   Data Transfer Object
+ * @license    https://opensource.org/license/mit/  MIT License
+ * @copyright  Copyright (c) 2023, Vidda
+ * @author     Vidda <vidda@ascetik.fr>
+ */
+
+declare(strict_types=1);
+
 namespace Ascetik\UnitscaleTime\DTO;
 
 use Ascetik\UnitscaleCore\Containers\ScaleContainer;
@@ -8,22 +20,40 @@ use Ascetik\UnitscaleCore\Types\Scale;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 
+/**
+ * Works as parent class
+ * with a lowest scale limit
+ *
+ * @version 1.0.0
+ */
 class TimeScaleReference extends ScaleReference
 {
     public function __construct(
         TimeScaleValue $value,
         ScaleContainer $scales = null,
-        protected ?Scale $highest = null,
+        ?Scale $highest = null,
         protected ?Scale $lowest = null
     ) {
-        parent::__construct($value, $scales);
+        parent::__construct($value, $scales, $highest);
+    }
+
+    public function limitTo(string $action): self
+    {
+        $limit = $this->value::createScale($action);
+        return new self($this->value, $this->scales, $limit, $this->lowest);
+    }
+
+    public function until(string $action): self
+    {
+        $limit = $this->value::createScale($action);
+        return new self($this->value, $this->scales, $this->highest, $limit);
     }
 
     public function withHighestValue(): static
     {
         return $this->useValue($this->highest());
     }
-    
+
     public function withValue(int|float $value): static
     {
         if ($this->value->raw() === $value) {

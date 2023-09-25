@@ -3,16 +3,32 @@
 namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
+use Ascetik\UnitscaleCore\Parsers\ScaleCommandInterpreter;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
+use BadMethodCallException;
 
 class AdjustedTimeValue extends AdjustedValue
 {
-    private ?TimeScaleValue $next = null;
+    private ?self $next = null;
 
     public function __construct(private TimeScaleReference $reference)
     {
+    }
+
+    public function __call($name, $arguments): static
+    {
+        $parser = ScaleCommandInterpreter::parse($name);
+        // echo $parser->command->name.PHP_EOL;
+        // exit;
+        $reference = match ($parser->command->name) {
+            'FROM' => $this->reference->until($parser->action),
+            'TO' => $this->reference->limitTo($parser->action),
+            default=> throw new BadMethodCallException('Method '.$name.' not implemented')
+        };
+        // echo 'merde';
+        return new self($reference);
     }
 
     public function __toString(): string
