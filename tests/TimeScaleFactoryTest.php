@@ -97,4 +97,16 @@ class TimeScaleFactoryTest extends TestCase
         $this->assertSame($year * 2, $scale->forward(2));
         $this->assertSame(1, $scale->backward($year));
     }
+
+    public function testMicroSecondsForward()
+    {
+        $scale = $this->factory->micro();
+        $this->assertEquals(1, $scale->forward(1000000));
+    }
+
+    public function testNanoSecondsBackWard()
+    {
+        $scale = $this->factory->nano();
+        $this->assertEquals(1,$scale->backward(0.000000001));
+    }
 }
