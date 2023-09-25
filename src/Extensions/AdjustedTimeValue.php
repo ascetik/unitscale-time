@@ -3,6 +3,7 @@
 namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
+use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 
@@ -27,11 +28,16 @@ class AdjustedTimeValue extends AdjustedValue
             }
         }
         $output = array_filter(
-            [$origin->litteral(), $this->next?->litteral()],
+            [$origin, $this->next],
             fn (?string $litteral) => $litteral !== null
         );
         return implode(' ', $output);
+    }
 
+    public static function buildWith(ScaleValue $value): static
+    {
+        $reference = new TImeScaleReference($value);
+        return new self($reference);
     }
 
     private function setNextWith(int|float $value)
@@ -39,5 +45,4 @@ class AdjustedTimeValue extends AdjustedValue
         $leftValue = new TimeScaleValue($value);
         $this->next = new static($this->reference->useValue($leftValue));
     }
-
 }
