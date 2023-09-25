@@ -1,13 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ascetik\UnitscaleTime\Tests;
 
 use Ascetik\UnitscaleCore\Scales\CustomScale;
 use Ascetik\UnitscaleTime\Factories\TimeScaleFactory;
-use Ascetik\UnitscaleTime\Scales\DayScale;
-use Ascetik\UnitscaleTime\Scales\HourScale;
-use Ascetik\UnitscaleTime\Scales\MinuteScale;
-use Ascetik\UnitscaleTime\Scales\SecondScale;
 use Ascetik\UnitscaleTime\Scales\TimeScale;
 use PHPUnit\Framework\TestCase;
 
