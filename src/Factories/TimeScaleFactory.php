@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * This is part of the UnitScale Time package.
+ *
+ * @package    unitscale-time
+ * @category   Scale factory
+ * @license    https://opensource.org/license/mit/  MIT License
+ * @copyright  Copyright (c) 2023, Vidda
+ * @author     Vidda <vidda@ascetik.fr>
+ */
+
+ declare(strict_types=1);
+
 namespace Ascetik\UnitscaleTime\Factories;
 
 use Ascetik\UnitscaleCore\Scales\CustomScale;
@@ -7,6 +19,11 @@ use Ascetik\UnitscaleCore\Types\Scale;
 use Ascetik\UnitscaleCore\Types\ScaleFactory;
 use Ascetik\UnitscaleTime\Scales\TimeScale;
 
+/**
+ * Nuild TimeScales
+ *
+ * @version 1.0.0
+ */
 class TimeScaleFactory implements ScaleFactory
 {
     public function years()
