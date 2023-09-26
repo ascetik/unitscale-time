@@ -1,0 +1,28 @@
+{
+    "name": "ascetik/unitscale-time",
+    "description": "Play with time units",
+    "type": "library",
+    "require": {
+        "ascetik/unitscale-core": "^0.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.3"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ascetik\\UnitscaleTime\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ascetik\\UnitscaleTime\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ascetik",
+            "email": "ascetik@free.fr"
+        }
+    ]
+}
