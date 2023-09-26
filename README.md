@@ -1,14 +1,14 @@
 # unitscale-time
 Convert a unit of time to another
 
-From picoseconds to seconds,then minutes, hours, days, weeks, months and years.
+From picoseconds to seconds, then minutes, hours, days, weeks, months and years.
 
-## Release
+## Release version 0.1.0
 
-
+- Time value adjustment : Convert a time value to a chain of values
 ## Usage
 
-To get an instance of the time converter :
+To get an instance of time value :
 
 ```php
 
@@ -18,10 +18,14 @@ $converter = TimeScaler::unit(3000);
 
 Time converter uses least multiples, from pico to milliseconds.
 Then it uses seconds, minutes, hours, days, weeks, months and years.
+Default scale is *seconds*.
 
 Some examples :
 
 ```php
+$unit = TimeScaler::unit(10);
+echo $unit; // prints '10s'
+echo $unit->raw(); // prints 10
 
 echo TimeScaler::unit(7)
     ->fromDays()
@@ -56,9 +60,7 @@ Some examples :
 ```php
 
 echo TimeScaler::adjust(3600); // prints '1h'
-
 // or
-
 echo TimeScaler::unit(3600)->adjust(); // same result
 
 echo TimeScaler::adjust(3700); // prints '1h 1m 40s'

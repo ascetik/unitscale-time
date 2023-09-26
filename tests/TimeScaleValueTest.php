@@ -14,11 +14,14 @@ class TimeScaleValueTest extends TestCase
         $value = new TimeScaleValue(60);
         $this->assertInstanceOf(TimeScale::class, $value->getScale());
         $this->assertSame('60s', (string) $value);
+        $this->assertSame(60, $value->raw());
+
     }
 
     public function testSameTestUsingFactory()
     {
         $value = TimeScaler::unit(60);
+        echo $value->raw();
         $this->assertSame('60s', (string) $value);
     }
 
