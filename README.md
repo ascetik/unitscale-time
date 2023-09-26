@@ -3,9 +3,9 @@ Convert a unit of time to another
 
 From picoseconds to seconds,then minutes, hours, days, weeks, months and years.
 
-## Release
+## Release version 0.1.0
 
-
+- Time value adjustment : Convert a time value to a chain of values
 ## Usage
 
 To get an instance of the time converter :
