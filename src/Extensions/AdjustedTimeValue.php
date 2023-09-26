@@ -76,8 +76,9 @@ class AdjustedTimeValue extends AdjustedValue
         $highest = $this->reference->withHighestValue();
         $origin = $highest->value;
         $raw = $origin->raw();
-        if ($raw !== (int) $raw && $raw > 1) {
-            $origin = $highest->withValue((int) $raw)->value;
+        $int = $origin->integer();
+        if ($raw !== $int && $raw > 1) {
+            $origin = $highest->withValue($int)->value;
             $modulo = $this->reference->modulo($highest->value);
             if ($modulo > 0) {
                 $this->setNextWith($modulo);

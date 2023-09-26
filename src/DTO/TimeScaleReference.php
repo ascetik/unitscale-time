@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is part of the UnitScale package.
+ * This is part of the UnitScale Time package.
  *
- * @package    UnitScale
+ * @package    unitscale-time
  * @category   Data Transfer Object
  * @license    https://opensource.org/license/mit/  MIT License
  * @copyright  Copyright (c) 2023, Vidda
