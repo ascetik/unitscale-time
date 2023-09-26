@@ -8,7 +8,9 @@
 >
     <testsuites>
         <testsuite name="Unit Scale">
-            <file>tests/TimeScaleTest.php</file>
+            <file>tests/TimeScaleFactoryTest.php</file>
+            <file>tests/TimeScaleValueTest.php</file>
+            <file>tests/TimeScaleAdjustmentTest.php</file>
         </testsuite>
     </testsuites>
     <php>

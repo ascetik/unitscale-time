@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Ascetik\UnitscaleTime\Values;
 
-use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
 use Ascetik\UnitscaleCore\Types\ScaleFactory;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
+use Ascetik\UnitscaleTime\Extensions\AdjustedTimeValue;
 use Ascetik\UnitscaleTime\Factories\TimeScaleFactory;
 
 /**
@@ -58,8 +58,8 @@ class TimeScaleValue extends ScaleValue
         return new TimeScaleFactory();
     }
 
-    public function adjust(): AdjustedValue
+    public function adjust(): AdjustedTimeValue
     {
-        return AdjustedValue::buildWith($this); // TODO : AdjustedTImeValue avec une limite de longueur
+        return AdjustedTimeValue::buildWith($this); // TODO : AdjustedTImeValue avec une limite de longueur
     }
 }
