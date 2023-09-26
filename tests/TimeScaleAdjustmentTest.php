@@ -102,6 +102,7 @@ class TimeScaleAdjustmentTest extends TestCase
     public function testShouldIllustrateReadmeExampleTwoC()
     {
         $value = TimeScaler::adjust(86570);
+        $this->assertIsFloat($value->raw());
         $this->assertSame('1d 2m 50s', (string) $value);
         $hours = $value->toHours();
         $this->assertSame('24h 2m 50s', (string) $hours);
