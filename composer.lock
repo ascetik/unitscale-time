@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9005b2264ebba16b497828f2e07439dd",
+    "content-hash": "becb0b8cc0250643dd40dcee4fbd59a1",
     "packages": [
         {
             "name": "ascetik/storage",
@@ -48,16 +48,16 @@
         },
         {
             "name": "ascetik/unitscale-core",
-            "version": "v0.2.2",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ascetik/unitscale-core.git",
-                "reference": "0947b27ae7e05089b01212b39931f5a50a71bbdd"
+                "reference": "948bf17f539071f01efde6bc004b686ee285d987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ascetik/unitscale-core/zipball/0947b27ae7e05089b01212b39931f5a50a71bbdd",
-                "reference": "0947b27ae7e05089b01212b39931f5a50a71bbdd",
+                "url": "https://api.github.com/repos/ascetik/unitscale-core/zipball/948bf17f539071f01efde6bc004b686ee285d987",
+                "reference": "948bf17f539071f01efde6bc004b686ee285d987",
                 "shasum": ""
             },
             "require": {
@@ -86,9 +86,9 @@
             "description": "Tool handling scale unit conversions form pico to tera",
             "support": {
                 "issues": "https://github.com/ascetik/unitscale-core/issues",
-                "source": "https://github.com/ascetik/unitscale-core/tree/v0.2.2"
+                "source": "https://github.com/ascetik/unitscale-core/tree/v0.3.1"
             },
-            "time": "2023-09-25T16:56:10+00:00"
+            "time": "2023-09-26T15:50:28+00:00"
         }
     ],
     "packages-dev": [
