@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Ascetik\UnitscaleTime\Values;
 
-use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
 use Ascetik\UnitscaleCore\Types\ScaleFactory;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\Extensions\AdjustedTimeValue;

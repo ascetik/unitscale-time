@@ -16,7 +16,7 @@ namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
 use Ascetik\UnitscaleCore\Parsers\ScaleCommandInterpreter;
-use Ascetik\UnitscaleCore\Types\Scale;
+use Ascetik\UnitscaleCore\Traits\UseHighestValue;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
@@ -51,11 +51,13 @@ use BadMethodCallException;
  */
 class AdjustedTimeValue extends AdjustedValue
 {
+    use UseHighestValue;
+
     private ?self $next = null;
 
     public function __construct(private TimeScaleReference $reference)
     {
-        $this->highest = $this->reference->highest();
+        $this->setReference($reference);
     }
 
     public function __call($name, $arguments): static
@@ -88,21 +90,6 @@ class AdjustedTimeValue extends AdjustedValue
         return implode(' ', $output);
     }
     
-    public function raw(): int|float
-    {
-        return $this->highest->raw();
-    }
-
-    public function getScale(): Scale
-    {
-        return $this->highest->getScale();
-    }
-
-    public function getUnit(): string
-    {
-        return $this->highest->getUnit();
-    }
-
     public static function buildWith(ScaleValue $value): static
     {
         $reference = new TimeScaleReference($value);
