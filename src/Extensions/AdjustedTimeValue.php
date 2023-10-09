@@ -16,6 +16,7 @@ namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
 use Ascetik\UnitscaleCore\Parsers\ScaleCommandInterpreter;
+use Ascetik\UnitscaleCore\Parsers\ScaleCommandParser;
 use Ascetik\UnitscaleCore\Traits\UseHighestValue;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
@@ -34,20 +35,20 @@ use BadMethodCallException;
  * Like so, the string representation
  * of the time value is completely displayed
  *
- * @method static toYears()
- * @method static toMonths()
- * @method static toWeeks()
- * @method static toDays()
- * @method static toHours()
- * @method static totoMinutes()
- * @method static toSeconds()
- * @method static toBase()
- * @method static toMilli()
- * @method static toMicro()
- * @method static toNano()
- * @method static toPico()
+ * @method static asYears()
+ * @method static asMonths()
+ * @method static asWeeks()
+ * @method static asDays()
+ * @method static asHours()
+ * @method static astoMinutes()
+ * @method static asSeconds()
+ * @method static asBase()
+ * @method static asMilli()
+ * @method static asMicro()
+ * @method static asNano()
+ * @method static asPico()
  *
- * @version 1.0.0
+ * @version 2.0.0
  */
 class AdjustedTimeValue extends AdjustedValue
 {
@@ -62,11 +63,11 @@ class AdjustedTimeValue extends AdjustedValue
 
     public function __call($name, $arguments): static
     {
-        $parser = ScaleCommandInterpreter::parse($name);
-        $reference = match ($parser->command->name) {
-            'FROM' => $this->reference->until($parser->action),
-            'TO' => $this->reference->limitTo($parser->action),
-            default=> throw new BadMethodCallException('Method '.$name.' not implemented')
+        $parser = new ScaleCommandParser('as','until');
+        $command = $parser->parse($name);
+        $reference = match($command->prefix){
+            'as'=> $this->reference->limitTo($command->name),
+            'until'=>$this->reference->until($command->name)
         };
         return new self($reference);
     }
