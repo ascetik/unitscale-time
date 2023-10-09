@@ -24,18 +24,6 @@ use Ascetik\UnitscaleTime\Factories\TimeScaleFactory;
  * then seconds (defaut unit), minutes, hours...
  * until years
  *
- * @method self fromYears()
- * @method self fromMonths()
- * @method self fromWeeks()
- * @method self fromDays()
- * @method self fromHours()
- * @method self fromMinutes()
- * @method self fromBase()
- * @method self fromSeconds()
- * @method self fromMilli()
- * @method self fromMicro()
- * @method self fromNano()
- * @method self fromPico()
  * @method self toYears()
  * @method self toMonths()
  * @method self toWeeks()
@@ -49,7 +37,7 @@ use Ascetik\UnitscaleTime\Factories\TimeScaleFactory;
  * @method self toNano()
  * @method self toPico()
  *
- * @version 1.0.0
+ * @version 2.0.0
  */
 class TimeScaleValue extends ScaleValue
 {
@@ -60,6 +48,6 @@ class TimeScaleValue extends ScaleValue
 
     public function adjust(): AdjustedTimeValue
     {
-        return AdjustedTimeValue::buildWith($this); // TODO : AdjustedTImeValue avec une limite de longueur
+        return AdjustedTimeValue::buildWith($this); // TODO : AdjustedTimeValue avec une limite de longueur
     }
 }

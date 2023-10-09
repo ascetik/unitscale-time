@@ -3,9 +3,17 @@ Convert a unit of time to another
 
 From picoseconds to seconds, then minutes, hours, days, weeks, months and years.
 
-## Release version 0.1.0
+## Release version 1.0.0
 
-- Time value adjustment : Convert a time value to a chain of values
+- Upgraded core package.
+
+## Breaking changes
+
+Scaler factory handles methods starting with "from" prefix.
+ScaleValue is no longer able to handle base scale mutation and only uses "to" methods.
+
+See unitscale-core package README file for more informations.
+
 ## Usage
 
 To get an instance of time value :
@@ -27,17 +35,11 @@ $unit = TimeScaler::unit(10);
 echo $unit; // prints '10s'
 echo $unit->raw(); // prints 10
 
-echo TimeScaler::unit(7)
-    ->fromDays()
-    ->toWeeks(); //prints "1W"
+echo TimeScaler::fromDays(7)->toWeeks(); //prints "1W"
 
-echo TimeScaler::unit(60000)
-    ->fromMilli()
-    ->toMinutes(); //prints "1m"
+echo TimeScaler::fromMilli(60000)->toMinutes(); //prints "1m"
 
-echo TimeScaler::unit(2)
-    ->fromMinutes()
-    ->toMilli(); //prints "120000ms"
+echo TimeScaler::fromMinutes(2)->toMilli(); //prints "120000ms"
 
 echo TimeScaler::unit(time())
     ->toYears()
@@ -59,11 +61,9 @@ Some examples :
 
 ```php
 
-echo TimeScaler::adjust(3600); // prints '1h'
-// or
-echo TimeScaler::unit(3600)->adjust(); // same result
+echo TimeScaler::unit(3600)->adjust(); // prints '1h'
 
-echo TimeScaler::adjust(3700); // prints '1h 1m 40s'
+echo TimeScaler::unit(3700)->adjust(); // prints '1h 1m 40s'
 
 ```
 
@@ -71,8 +71,7 @@ To adjust time from another scale :
 
 ```php
 
-echo TimeScaler::unit(1010)
-    ->fromMilli()
+echo TimeScaler::fromMilli(1010)
     ->adjust(); // prints '1s 10ms'
 ```
 
@@ -80,16 +79,16 @@ Choose the maximum scale :
 
 ```php
 echo TimeScaler::adjust(86570)
-    ->toHours(); // prints '24H 1m 10s'
+    ->asHours(); // prints '24H 1m 10s'
 
-echo TimeScaler::unit(3000000)
-    ->fromMicro()
+echo TimeScaler::fromMicro(3000000)
     ->adjust()
-    ->toMilli(); // prints '3000ms'
+    ->asMilli(); // prints '3000ms'
 
 
-echo TimeScaler::adjust(3600)
-    ->toYears(); // prints '1h', obviously
+echo TimeScaler::unit(3600)
+    ->adjust()
+    ->asYears(); // prints '1h', obviously
 
 ```
 
