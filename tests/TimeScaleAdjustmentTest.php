@@ -40,25 +40,25 @@ class TimeScaleAdjustmentTest extends TestCase
 
     public function testTimeReductionFromHoursToDay()
     {
-        $primitive = TimeScaler::unit(24)->fromHours()->adjust();
+        $primitive = TimeScaler::fromHours(24)->adjust();
         $this->assertSame('1d', (string) $primitive);
     }
 
     public function testShouldConvertHoursToDaysAndHour()
     {
-        $primitive = TimeScaler::unit(25)->fromHours()->adjust();
+        $primitive = TimeScaler::fromHours(25)->adjust();
         $this->assertSame('1d 1h', (string) $primitive);
     }
 
     public function testShouldConvertDaysToWeeks()
     {
-        $primitive = TimeScaler::unit(8)->fromDays()->adjust();
+        $primitive = TimeScaler::fromDays(8)->adjust();
         $this->assertSame('1W 1d', (string) $primitive);
     }
 
     public function testShouldConvertFromNanoToSecondsWithSomeScalesLeft()
     {
-        $primitive = TimeScaler::unit(1010010000)->fromNano()->adjust();
+        $primitive = TimeScaler::fromNano(1010010000)->adjust();
         $this->assertSame('1s 10ms 10μs', (string) $primitive);
     }
 
@@ -72,45 +72,43 @@ class TimeScaleAdjustmentTest extends TestCase
 
     public function testShouldLimitReductionToMinutes()
     {
-        $seconds = TimeScaler::adjust(3650)->toMinutes();
+        $seconds = TimeScaler::unit(3650)->adjust()->asMinutes();
         $this->assertSame('60m 50s', (string) $seconds);
     }
 
     public function testShouldIllustrateFirstReadmeExample()
     {
-        $value = TimeScaler::adjust(3700);
+        $value = TimeScaler::unit(3700)->adjust();
         $this->assertSame('1h 1m 40s', (string) $value);
     }
 
     public function testShouldIllustrateReadmeExampleTwoA()
     {
-        $value = TimeScaler::unit(1010)
-            ->fromMilli()
+        $value = TimeScaler::fromMilli(1010)
             ->adjust();
         $this->assertSame('1s 10ms', (string) $value);
     }
 
     public function testShouldIllustrateReadmeExampleTwoB()
     {
-        $value = TimeScaler::unit(3000000)
-            ->fromMicro()
+        $value = TimeScaler::fromMicro(3000000)
             ->adjust()
-            ->toMilli();
+            ->asMilli();
         $this->assertSame('3000ms', (string) $value);
     }
 
     public function testShouldIllustrateReadmeExampleTwoC()
     {
-        $value = TimeScaler::adjust(86570);
+        $value = TimeScaler::unit(86570)->adjust();
         $this->assertIsFloat($value->raw());
         $this->assertSame('1d 2m 50s', (string) $value);
-        $hours = $value->toHours();
+        $hours = $value->asHours();
         $this->assertSame('24h 2m 50s', (string) $hours);
     }
 
     public function testShouldIllustrateReadmeExampleTwoD()
     {
-        $value = TimeScaler::adjust(3600)->toYears();
+        $value = TimeScaler::unit(3600)->adjust()->asYears();
         $this->assertSame('1h', (string) $value);
     }
 }
