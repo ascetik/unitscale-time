@@ -15,15 +15,30 @@ declare(strict_types=1);
 namespace Ascetik\UnitscaleTime\Factories;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
+use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleCore\Types\ScaleValueFactory;
+use Ascetik\UnitscaleCore\Utils\PrefixedCommand;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 
 /**
  * Build TimeScaleValue instances
  *
- * @version 1.0.0
+ * @method TimeScaleValue fromYears(int|float|null $value)
+ * @method TimeScaleValue fromMonths(int|float|null $value)
+ * @method TimeScaleValue fromWeeks(int|float|null $value)
+ * @method TimeScaleValue fromDays(int|float|null $value)
+ * @method TimeScaleValue fromHours(int|float|null $value)
+ * @method TimeScaleValue fromMinutes(int|float|null $value)
+ * @method TimeScaleValue fromBase(int|float|null $value)
+ * @method TimeScaleValue fromSeconds(int|float|null $value)
+ * @method TimeScaleValue fromMilli(int|float|null $value)
+ * @method TimeScaleValue fromMicro(int|float|null $value)
+ * @method TimeScaleValue fromNano(int|float|null $value)
+ * @method TimeScaleValue fromPico(int|float|null $value)
+ *
+ * @version 1.1.0
  */
-class TimeScaler implements ScaleValueFactory
+class TimeScaler extends ScaleValueFactory
 {
     public static function unit(int|float $value, string $unit = ''): TimeScaleValue
     {
@@ -33,5 +48,14 @@ class TimeScaler implements ScaleValueFactory
     public static function adjust(int|float $value, string $unit = ''): AdjustedValue
     {
         return self::unit($value)->adjust();
+    }
+
+    protected static function createWithCommand(PrefixedCommand $command, array $args = []): ScaleValue
+    {
+        $value = match (count($args)) {
+            1 => $args[0],
+            default => 0
+        };
+        return TimeScaleValue::createFromScale((float) $value, $command->name);
     }
 }
