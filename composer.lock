@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "becb0b8cc0250643dd40dcee4fbd59a1",
+    "content-hash": "57a4ec666bb4fc2cb9bbdc38f295e9e5",
     "packages": [
         {
             "name": "ascetik/storage",
