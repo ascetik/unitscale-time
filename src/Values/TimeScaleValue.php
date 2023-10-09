@@ -48,6 +48,6 @@ class TimeScaleValue extends ScaleValue
 
     public function adjust(): AdjustedTimeValue
     {
-        return AdjustedTimeValue::buildWith($this); // TODO : AdjustedTImeValue avec une limite de longueur
+        return AdjustedTimeValue::buildWith($this); // TODO : AdjustedTimeValue avec une limite de longueur
     }
 }
