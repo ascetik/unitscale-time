@@ -9,10 +9,15 @@ From picoseconds to seconds, then minutes, hours, days, weeks, months and years.
 
 ## Breaking changes
 
+### Handling base scales
+
 Scaler factory handles methods starting with "from" prefix.
 ScaleValue is no longer able to handle base scale mutation and only uses "to" methods.
 
 See unitscale-core package README file for more informations.
+
+### Handling ajdustment
+
 
 ## Usage
 
