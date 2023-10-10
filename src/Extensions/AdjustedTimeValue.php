@@ -36,7 +36,7 @@ use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
  * @method static asWeeks()
  * @method static asDays()
  * @method static asHours()
- * @method static astoMinutes()
+ * @method static asMinutes()
  * @method static asSeconds()
  * @method static asBase()
  * @method static asMilli()
