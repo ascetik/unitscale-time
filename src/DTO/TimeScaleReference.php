@@ -32,7 +32,6 @@ class TimeScaleReference extends ScaleReference
         TimeScaleValue $value,
         ScaleContainer $scales = null,
         ?Scale $highest = null,
-        protected ?Scale $lowest = null
     ) {
         parent::__construct($value, $scales, $highest);
     }
@@ -40,13 +39,7 @@ class TimeScaleReference extends ScaleReference
     public function limitTo(string $action): self
     {
         $limit = $this->value::createScale($action);
-        return new self($this->value, $this->scales, $limit, $this->lowest);
-    }
-
-    public function until(string $action): self
-    {
-        $limit = $this->value::createScale($action);
-        return new self($this->value, $this->scales, $this->highest, $limit);
+        return new self($this->value, $this->scales, $limit);
     }
 
     public function withHighestValue(): static
@@ -64,7 +57,7 @@ class TimeScaleReference extends ScaleReference
 
     public function useValue(TimeScaleValue $value): static
     {
-        return new static($value, $this->scales, $this->highest, $this->lowest);
+        return new static($value, $this->scales, $this->highest);
     }
 
     /**

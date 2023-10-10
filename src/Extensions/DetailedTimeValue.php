@@ -14,6 +14,7 @@ namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Parsers\ScaleCommandParser;
 use Ascetik\UnitscaleCore\Types\Scale;
+use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
 use Ascetik\UnitscaleTime\Extensions\AdjustedTimeValue;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 
@@ -21,6 +22,19 @@ use Ascetik\UnitscaleTime\Values\TimeScaleValue;
  * Decompose given Time value with multiple chained scales
  *
  * @mixin AdjustedTimeValue
+ * @method self untilYears()
+ * @method self untilMonths()
+ * @method self untilWeeks()
+ * @method self untilDays()
+ * @method self untilHours()
+ * @method self untilMinutes()
+ * @method self untilSeconds()
+ * @method self untilBase()
+ * @method self untilMilli()
+ * @method self untilMicro()
+ * @method self untilNano()
+ * @method self untilPico()
+ *
  * @version 1.0.0
  */
 class DetailedTimeValue extends AdjustedTimeValue
@@ -32,27 +46,38 @@ class DetailedTimeValue extends AdjustedTimeValue
      */
     private ?self $next = null;
 
-    protected ?Scale $lowest = null;
+    public function __construct(
+        TimeScaleReference $reference,
+        protected ?Scale $lowest = null
+    ) {
+        parent::__construct($reference);
+    }
 
     public function __call($name, $arguments): static
     {
         $parser = new ScaleCommandParser('as', 'until');
         $command = $parser->parse($name);
-        $reference = match ($command->prefix) {
-            'as' => $this->reference->limitTo($command->name),
+        return match ($command->prefix) {
+            'as' => $this->limitTo($command->name),
             'until' => $this->until($command->name)
         };
-        return new static($reference);
     }
 
     public function __toString(): string
     {
         $highest = $this->reference->withHighestValue();
         $origin = $highest->value;
-        $raw = $origin->raw();
-        $int = $origin->integer();
-        if ($raw !== $int && $raw > 1) {
-            $origin = $highest->withValue($int)->value;
+
+        /**
+         * Scale comparison will be available
+         * on next core package release
+         */
+        if($origin->getScale() == $this->lowest){
+            return (string) $origin->withValue($origin->integer());
+        }
+
+        if (!$origin->isInteger() && $origin->raw() > 1) {
+            $origin = $highest->withValue($origin->integer())->value;
             $modulo = $this->reference->modulo($highest->value);
             if ($modulo > 0) {
                 $this->setNextWith($modulo);
@@ -65,18 +90,22 @@ class DetailedTimeValue extends AdjustedTimeValue
         return implode(' ', $output);
     }
 
-    private function until(string $scale)
+    private function limitTo(string $scale): self
+    {
+        $reference = $this->reference->limitTo($scale);
+        return new self($reference);
+    }
+
+    private function until(string $scale): self
     {
         $this->lowest = TimeScaleValue::createScale($scale);
+        return $this;
     }
 
     private function setNextWith(int|float $value)
     {
         $leftValue = new TimeScaleValue($value);
         $ref = $this->reference->useValue($leftValue);
-        // $highest = $ref->withHighestValue();
-        // echo $highest->value->getUnit() . PHP_EOL;
-        // echo ($this->lowest?->unit() ?? 'pas de lowest sur ce coup là !') . PHP_EOL;
-        $this->next = new static($ref);
+        $this->next = new self($ref, $this->lowest);
     }
 }
