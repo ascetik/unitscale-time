@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * This is part of the UnitScale Time package.
+ *
+ * @package    unitscale-time
+ * @category   ScaleValue adjustment Extension
+ * @license    https://opensource.org/license/mit/  MIT License
+ * @copyright  Copyright (c) 2023, Vidda
+ * @author     Vidda <vidda@ascetik.fr>
+ */
+
 namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Parsers\ScaleCommandParser;
@@ -8,7 +18,7 @@ use Ascetik\UnitscaleTime\Extensions\AdjustedTimeValue;
 use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 
 /**
- * Decompose given Time value by multiple chained scales
+ * Decompose given Time value with multiple chained scales
  *
  * @mixin AdjustedTimeValue
  * @version 1.0.0
@@ -21,7 +31,7 @@ class DetailedTimeValue extends AdjustedTimeValue
      * @var self|null
      */
     private ?self $next = null;
-    
+
     protected ?Scale $lowest = null;
 
     public function __call($name, $arguments): static

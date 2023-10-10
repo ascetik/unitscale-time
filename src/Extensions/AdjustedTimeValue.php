@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
-use Ascetik\UnitscaleCore\Parsers\ScaleCommandParser;
 use Ascetik\UnitscaleCore\Traits\UseHighestValue;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
