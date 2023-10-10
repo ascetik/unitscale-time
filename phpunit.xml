@@ -11,6 +11,7 @@
             <file>tests/TimeScaleFactoryTest.php</file>
             <file>tests/TimeScaleValueTest.php</file>
             <file>tests/TimeScaleAdjustmentTest.php</file>
+            <file>tests/TimeScaleDetailTest.php</file>
         </testsuite>
     </testsuites>
     <php>
