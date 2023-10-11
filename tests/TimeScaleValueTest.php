@@ -15,19 +15,17 @@ class TimeScaleValueTest extends TestCase
         $this->assertInstanceOf(TimeScale::class, $value->getScale());
         $this->assertSame('60s', (string) $value);
         $this->assertSame(60, $value->raw());
-
     }
 
     public function testSameTestUsingFactory()
     {
         $value = TimeScaler::unit(60);
-        echo $value->raw();
         $this->assertSame('60s', (string) $value);
     }
 
     public function testShouldHaveAMinuteScale()
     {
-        $value = TimeScaler::unit(60)->fromMinutes();
+        $value = TimeScaler::fromMinutes(60);
         $this->assertSame('60m', (string) $value);
     }
 
@@ -40,7 +38,7 @@ class TimeScaleValueTest extends TestCase
     public function testShouldConvertMilliSecondsToHours()
     {
         $ms = 1000 * 3600 * 2;
-        $value = TimeScaler::unit($ms)->fromMilli()->toHours();
+        $value = TimeScaler::fromMilli($ms)->toHours();
         $this->assertSame('2h', (string) $value);
     }
 
@@ -48,10 +46,9 @@ class TimeScaleValueTest extends TestCase
     {
         $this->assertSame(
             '1W',
-            (string) TimeScaler::unit(7)
-                ->fromDays()
+            (string) TimeScaler::fromDays(7)
                 ->toWeeks()
-        ); //prints "1W", raw() method would return *1*
+        );
 
     }
 }
