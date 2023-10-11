@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Ascetik\UnitscaleTime\Extensions;
 
 use Ascetik\UnitscaleCore\Extensions\AdjustedValue;
-use Ascetik\UnitscaleCore\Traits\UseHighestValue;
 use Ascetik\UnitscaleCore\Types\ScaleValue;
 use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
 
@@ -31,28 +30,29 @@ use Ascetik\UnitscaleTime\DTO\TimeScaleReference;
  * Like so, the string representation
  * of the time value is completely displayed
  *
- * @method static asYears()
- * @method static asMonths()
- * @method static asWeeks()
- * @method static asDays()
- * @method static asHours()
- * @method static asMinutes()
- * @method static asSeconds()
- * @method static asBase()
- * @method static asMilli()
- * @method static asMicro()
- * @method static asNano()
- * @method static asPico()
+ * @method self asYears()
+ * @method self asMonths()
+ * @method self asWeeks()
+ * @method self asDays()
+ * @method self asHours()
+ * @method self asMinutes()
+ * @method self asSeconds()
+ * @method self asBase()
+ * @method self asMilli()
+ * @method self asMicro()
+ * @method self asNano()
+ * @method self asPico()
  *
  * @version 2.0.0
  */
 class AdjustedTimeValue extends AdjustedValue
 {
-    use UseHighestValue;
+    private TimeScaleReference $reference;
 
-    public function __construct(protected TimeScaleReference $reference)
+    public function __construct(TimeScaleReference $reference)
     {
-        $this->setReference($reference);
+        $this->reference = $reference->rounded(3);
+        $this->setReference($this->reference);
     }
 
     public static function buildWith(ScaleValue $value): static
@@ -60,4 +60,5 @@ class AdjustedTimeValue extends AdjustedValue
         $reference = new TimeScaleReference($value);
         return new static($reference);
     }
+
 }

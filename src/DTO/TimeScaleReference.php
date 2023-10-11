@@ -32,19 +32,20 @@ class TimeScaleReference extends ScaleReference
         TimeScaleValue $value,
         ScaleContainer $scales = null,
         ?Scale $highest = null,
+        private ?int $precision = null
     ) {
         parent::__construct($value, $scales, $highest);
     }
 
-    public function limitTo(string $action): self
+    /** @override */
+    public function highest(): ScaleValue
     {
-        $limit = $this->value::createScale($action);
-        return new self($this->value, $this->scales, $limit);
-    }
-
-    public function withHighestValue(): static
-    {
-        return $this->useValue($this->highest());
+        $highest = parent::highest();
+        if(!is_null($this->precision) && !$highest->isInteger()){
+            $value = round($highest->raw(), $this->precision);
+            return $highest->withValue($value);
+        }
+        return $highest;
     }
 
     public function withValue(int|float $value): static
@@ -55,6 +56,17 @@ class TimeScaleReference extends ScaleReference
         return $this->useValue($this->value->withValue($value));
     }
 
+    public function withHighestValue(): self
+    {
+        return $this->useValue($this->highest());
+    }
+
+    public function rounded(int $precision): self
+    {
+        $this->precision = $precision;
+        return $this;
+    }
+
     public function useValue(TimeScaleValue $value): static
     {
         return new static($value, $this->scales, $this->highest);
@@ -63,8 +75,7 @@ class TimeScaleReference extends ScaleReference
     /**
      * The choice for a precision at 6 is
      * totally arbitrary.
-     * I will find a way to decide what
-     * amount is better.
+     * I will find a way to decide
      */
     public function modulo(ScaleValue $value): int|float
     {

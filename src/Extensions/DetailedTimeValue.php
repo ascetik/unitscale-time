@@ -21,7 +21,18 @@ use Ascetik\UnitscaleTime\Values\TimeScaleValue;
 /**
  * Decompose given Time value with multiple chained scales
  *
- * @mixin AdjustedTimeValue
+ * @method self asYears()
+ * @method self asMonths()
+ * @method self asWeeks()
+ * @method self asDays()
+ * @method self asHours()
+ * @method self asMinutes()
+ * @method self asSeconds()
+ * @method self asBase()
+ * @method self asMilli()
+ * @method self asMicro()
+ * @method self asNano()
+ * @method self asPico()
  * @method self untilYears()
  * @method self untilMonths()
  * @method self untilWeeks()
@@ -47,10 +58,10 @@ class DetailedTimeValue extends AdjustedTimeValue
     private ?self $next = null;
 
     public function __construct(
-        TimeScaleReference $reference,
+        protected TimeScaleReference $reference,
         protected ?Scale $lowest = null
     ) {
-        parent::__construct($reference);
+        $this->setReference($reference);
     }
 
     public function __call($name, $arguments): static
@@ -68,10 +79,6 @@ class DetailedTimeValue extends AdjustedTimeValue
         $highest = $this->reference->withHighestValue();
         $origin = $highest->value;
 
-        /**
-         * Scale comparison will be available
-         * on next core package release
-         */
         if($origin->getScale() == $this->lowest){
             return (string) $origin->withValue($origin->integer());
         }
