@@ -20,7 +20,6 @@ class TimeScaleValueTest extends TestCase
     public function testSameTestUsingFactory()
     {
         $value = TimeScaler::unit(60);
-        echo $value->raw();
         $this->assertSame('60s', (string) $value);
     }
 
