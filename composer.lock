@@ -48,16 +48,16 @@
         },
         {
             "name": "ascetik/unitscale-core",
-            "version": "v1.1.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ascetik/unitscale-core.git",
-                "reference": "43000e6894fd0847f13c22d0dbea1d28646ad2aa"
+                "reference": "30181a2f114e95abfb6d87fe0d042e9a40d56cfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ascetik/unitscale-core/zipball/43000e6894fd0847f13c22d0dbea1d28646ad2aa",
-                "reference": "43000e6894fd0847f13c22d0dbea1d28646ad2aa",
+                "url": "https://api.github.com/repos/ascetik/unitscale-core/zipball/30181a2f114e95abfb6d87fe0d042e9a40d56cfe",
+                "reference": "30181a2f114e95abfb6d87fe0d042e9a40d56cfe",
                 "shasum": ""
             },
             "require": {
@@ -86,9 +86,9 @@
             "description": "Tool handling scale unit conversions form pico to tera",
             "support": {
                 "issues": "https://github.com/ascetik/unitscale-core/issues",
-                "source": "https://github.com/ascetik/unitscale-core/tree/v1.1.0"
+                "source": "https://github.com/ascetik/unitscale-core/tree/v1.1.2"
             },
-            "time": "2023-10-06T16:02:02+00:00"
+            "time": "2023-10-11T16:22:59+00:00"
         }
     ],
     "packages-dev": [
